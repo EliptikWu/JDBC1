@@ -1,7 +1,7 @@
-package Application;
+package Models;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,6 +13,6 @@ public class Product {
     private Long id;
     private String name;
     private Double price;
-    private LocalDate dateRegistration;
-
+    private LocalDateTime dateRegistration;
+    private Category category;
 }

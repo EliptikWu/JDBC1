@@ -1,7 +1,9 @@
 package Application;
 
-import Impl.RepositoryImpl;
-import Repository.Repository;
+import DB.DataBaseConnection;
+import Models.Product;
+import Repository.Impl.ProductRepositoryImpl;
+import Repository.ProductRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ import java.sql.SQLException;
 public class Main2 {
     public static void main(String[] args){
         try(Connection conn = DataBaseConnection.getInstance()){
-            Repository<Product> repository = new RepositoryImpl();
+            ProductRepository<Product> repository = new ProductRepositoryImpl();
             System.out.println("***List products from database");
             repository.list().stream().forEach(System.out::println);
             System.out.println("**** Get by id: 1");
