@@ -34,7 +34,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     private Connection getConnection() throws SQLException {
         return DataBaseConnection.getInstance();
     }
-
+    
     private Product createProduct(ResultSet resultSet) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getLong("id"));
@@ -47,17 +47,15 @@ public class ProductRepositoryImpl implements ProductRepository {
         } else {
             product.setDateRegistration(null);
         }
-        product.setCategory(new Category(
-                resultSet.getLong("category_id"),
-                resultSet.getString("category_name")
-        ));
         return product;
     }
 
     public List<Product> list() {
         List<Product> productoList = new ArrayList<>();
         try (Statement statement = getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT p.*, c.name as category_name, c.id as category_id FROM products as p INNER JOIN products categories as c ON p.category_id = c.id;")) {
+             ResultSet resultSet = statement.executeQuery("SELECT p.*, c.name as category_name, c.id as category_id " +
+                     "FROM products as p " +
+                     "INNER JOIN categories as c ON p.category_id = c.id;")) {
             while (resultSet.next()) {
                 Product product = createProduct(resultSet);
                 productoList.add(product);
